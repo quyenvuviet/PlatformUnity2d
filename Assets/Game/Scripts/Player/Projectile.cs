@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 namespace Game.Scripts.player
 {
     public class Projectile : MonoBehaviour
@@ -11,33 +10,36 @@ namespace Game.Scripts.player
         private Animator animator;
         private float lifetime;
         private BoxCollider2D boxCollider;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
             boxCollider = GetComponent<BoxCollider2D>();
         }
+
         private void Update()
         {
             if (hit) return;
             float movementSpeed = speed * Time.deltaTime * direction;
             transform.Translate(movementSpeed, 0, 0);
-            lifetime +=Time.deltaTime;
-            if(lifetime > 1)
+            lifetime += Time.deltaTime;
+            if (lifetime > 1)
             {
                 gameObject.SetActive(false);
             }
-          
         }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             hit = true;
             boxCollider.enabled = false;
             animator.SetTrigger("explode");
         }
+
         public void SetDiretion(float _direction)
         {
             lifetime = 0;
-            direction =_direction;
+            direction = _direction;
             gameObject.SetActive(true);
             hit = false;
             boxCollider.enabled = true;
@@ -48,12 +50,11 @@ namespace Game.Scripts.player
                 locaSacleX = -locaSacleX;
             }
             transform.localScale = new Vector3(locaSacleX, transform.localScale.y, transform.localScale.z);
-
         }
+
         private void Deactive()
         {
             gameObject.SetActive(false);
         }
     }
-
 }

@@ -1,22 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] Transform PreviousRoom;
-    [SerializeField] Transform NextRoom;
+    [SerializeField] private Transform PreviousRoom;
+    [SerializeField] private Transform NextRoom;
     private CameraController cam;
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Awake()
     {
-        if(collision.transform.tag == "Player")
+        cam =Camera.main.GetComponent<CameraController>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {  
+        if (collision.transform.tag == "Player")
         {
             if (collision.transform.position.x < transform.position.x)
             {
                 cam.MovetoNextRoom(NextRoom);
+                NextRoom.GetComponent<Room>().ActivationRoom(true);
+                PreviousRoom.GetComponent<Room>().ActivationRoom(false);
             }
             else
+            {
                 cam.MovetoNextRoom(PreviousRoom);
+                NextRoom.GetComponent<Room>().ActivationRoom(false);
+                PreviousRoom.GetComponent<Room>().ActivationRoom(true);
+            }
+
+           
         }
     }
 }
