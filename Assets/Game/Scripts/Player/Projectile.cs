@@ -1,41 +1,55 @@
 using UnityEngine;
-
+using System;
+using System.Collections;
 namespace Game.Scripts.player
 {
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] private float speed;
-        private float direction;
-        private bool hit;
-        private Animator animator;
-        private float lifetime;
-        private BoxCollider2D boxCollider;
+        [SerializeField] public float speed;
+        [SerializeField] private float direction;
+        [SerializeField] private bool hit;
+        [SerializeField] private Animator animator;
+        [SerializeField] private float lifetime;
+        [SerializeField] private BoxCollider2D boxCollider;
+
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
             boxCollider = GetComponent<BoxCollider2D>();
         }
-
-        private void Update()
+        public void OnStart()
         {
-            if (hit) return;
-            float movementSpeed = speed * Time.deltaTime * direction;
-            transform.Translate(movementSpeed, 0, 0);
-            lifetime += Time.deltaTime;
-            if (lifetime > 1)
-            {
-                gameObject.SetActive(false);
-            }
+            boxCollider.enabled = true;
+            StartCoroutine(IeDespawn(lifetime));
         }
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (hit)
+            {
+                return;
+            }
             hit = true;
             boxCollider.enabled = false;
+            
             animator.SetTrigger("explode");
+            if(collision.tag == "enemy")
+            {
+                collision.GetComponent<Health>().TakeDame(1);
+            }
+            if (collision.CompareTag("enemy"))
+            {
+                var Pos = boxCollider.bounds.size.x / 2;
+                transform.position = new Vector2(Pos, transform.position.y);
+            }
+            GetComponent<Rigidbody2D>().velocity =Vector2.zero;
+            StartCoroutine(IeDespawn(1));
         }
-
+        IEnumerator IeDespawn(float time)
+        {
+            yield return new WaitForSeconds(time);
+            gameObject.Recycle();
+        }
         public void SetDiretion(float _direction)
         {
             lifetime = 0;
@@ -45,6 +59,7 @@ namespace Game.Scripts.player
             boxCollider.enabled = true;
 
             float locaSacleX = transform.localScale.x;
+
             if (Mathf.Sign(locaSacleX) != _direction)
             {
                 locaSacleX = -locaSacleX;

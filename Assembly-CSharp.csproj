@@ -60,6 +60,7 @@
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTextMeshPro.cs" />
     <Compile Include="Assets\Game\Scripts\Base\EventDispatcher\EventKey.cs" />
     <Compile Include="Assets\Game\Scripts\Enemy\EnemyDamge.cs" />
+    <Compile Include="Assets\Game\Scripts\Enemy\RangedEnemy.cs" />
     <Compile Include="Assets\Game\Scripts\Player\Health\Healthbar.cs" />
     <Compile Include="Assets\Game\Scripts\UI\HomeFrame.cs" />
     <Compile Include="Assets\Game\Scripts\Enemy\Enemy_sideway\Raw.cs" />
@@ -68,19 +69,26 @@
     <Compile Include="Assets\Game\Console\Scripts\ConsoleSystem.cs" />
     <Compile Include="Assets\Game\Console\Scripts\Console.cs" />
     <Compile Include="Assets\Game\Scripts\Player\Health\Health.cs" />
+    <Compile Include="Assets\Game\Scripts\Enemy\EnemyPartrol.cs" />
     <Compile Include="Assets\Game\Scripts\Base\Helper\SceneTools.cs" />
     <Compile Include="Assets\Game\Scripts\Base\SoundManager.cs" />
     <Compile Include="Assets\Game\Scripts\Base\DataManager\ItemStack.cs" />
+    <Compile Include="Assets\Game\Scripts\Base\Room.cs" />
     <Compile Include="Assets\Game\Scripts\Player\PlayerAttack.cs" />
+    <Compile Include="Assets\Game\Scripts\Boss\Boss.cs" />
     <Compile Include="Assets\Game\Console\Scripts\ConsoleView.cs" />
     <Compile Include="Assets\Game\Scripts\Base\Helper\Extentions.cs" />
+    <Compile Include="Assets\Game\Scripts\Enemy\EnemyFireballHolder.cs" />
     <Compile Include="Assets\Game\Scripts\Enemy\ArrawTrap.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\CameraController.cs" />
     <Compile Include="Assets\Game\Scripts\Base\FrameBase\UIAnimation.cs" />
     <Compile Include="Assets\Game\Scripts\Singleton.cs" />
     <Compile Include="Assets\Game\Scripts\Base\FrameBase\UIScale.cs" />
+    <Compile Include="Assets\Boss_run.cs" />
     <Compile Include="Assets\Game\Scripts\Camera\Door.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenAnimation.cs" />
+    <Compile Include="Assets\Game\Scripts\Enemy\SpikeHead.cs" />
     <Compile Include="Assets\Game\Scripts\Player\PlayerMove.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTk2d.cs" />
     <Compile Include="Assets\Game\Scripts\Base\DataManager\PlayerData.cs" />
@@ -88,11 +96,15 @@
     <Compile Include="Assets\Game\Scripts\Base\FrameBase\UIAnchorPosition.cs" />
     <Compile Include="Assets\Game\Scripts\Base\PoolManager.cs" />
     <Compile Include="Assets\Game\Scripts\Base\FrameBase\FrameManager.cs" />
+    <Compile Include="Assets\Game\Scripts\Boss\BossHealth.cs" />
     <Compile Include="Assets\Game\Scripts\Base\GameManager.cs" />
     <Compile Include="Assets\Game\Scripts\Player\Projectile.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\GroundSensor.cs" />
     <Compile Include="Assets\Game\Scripts\UI\GameFrame.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\Swordman.cs" />
+    <Compile Include="Assets\Game\Scripts\Enemy\EnemyProjectile.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
     <Compile Include="Assets\Game\Scripts\Base\DataManager\DataManager.cs" />
     <Compile Include="Assets\Game\Scripts\Base\SceneManager.cs" />
@@ -105,10 +117,12 @@
     <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Game\Scripts\Base\LoadingManager.cs" />
     <Compile Include="Assets\Game\Scripts\Camera\CameraController.cs" />
+    <Compile Include="Assets\Game\Scripts\Boss\BossWeapon.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Game\Scripts\Enemy\MeleteEnemy.cs" />
+    <Compile Include="Assets\Low_Swordman\Demo\Scripts\Demo_GM.cs" />
     <Compile Include="Assets\Game\Scripts\Player\Health\HealtheCollectTible.cs" />
-    <Compile Include="Assets\Game\Scripts\Enemy\EnemyProjectile.cs" />
-    <Compile Include="Assets\Game\Scripts\Enemy\SpikeHead.cs" />
-    <Compile Include="Assets\Game\Scripts\Base\Room.cs" />
+    <Compile Include="Assets\Boss_Enrage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Knight Files\Read Me.txt" />

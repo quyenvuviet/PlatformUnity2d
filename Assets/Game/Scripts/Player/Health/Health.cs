@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Game.Scripts.Enemy;
 
 namespace Game.Scripts.player
 {
@@ -39,7 +40,21 @@ namespace Game.Scripts.player
                 if (!dead)
                 {
                     animator.SetTrigger("die");
-                    GetComponent<PlayerMove>().enabled = false;
+                    if (GetComponent<PlayerMove>() != null)
+                    {
+                        GetComponent<PlayerMove>().enabled = false;
+
+                    }
+                    if (GetComponentInParent <EnemyPartrol> () != null)
+                    {
+                        GetComponentInParent<EnemyPartrol>().enabled = false;
+                      //  GetComponent<EnemyPartrol>().enabled = false;
+                     }
+                    if (GetComponent<MeleteEnemy>() != null)
+                    {
+                        GetComponent<MeleteEnemy>().enabled = false;
+                    }
+                   
                     dead = true;
                 }
             }

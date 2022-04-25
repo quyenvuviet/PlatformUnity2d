@@ -165,3 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  direction: 0
+  hit: 0
+  animator: {fileID: 0}
+  lifetime: 3
+  boxCollider: {fileID: 0}

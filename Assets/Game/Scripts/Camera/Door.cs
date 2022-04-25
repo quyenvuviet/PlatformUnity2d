@@ -1,13 +1,14 @@
+using Game.Scripts.Camera;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
     [SerializeField] private Transform PreviousRoom;
     [SerializeField] private Transform NextRoom;
-    private CameraController cam;
+    private Game.Scripts.Camera.CameraController cam;
     private void Awake()
     {
-        cam =Camera.main.GetComponent<CameraController>();
+        cam =Camera.main.GetComponent<Game.Scripts.Camera.CameraController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
