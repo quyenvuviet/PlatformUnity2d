@@ -45,8 +45,12 @@ namespace Game.Scripts.player
         private void Start()
         {
         }
+        /// <summary>
+        /// hàm ???c g?i ? m?i 1 frame
+        /// </summary>
         private void Update()
         {
+            //ki?m tra xem có th? b?n không
             if (Input.GetMouseButton(0) && cooldwonTime > AttackCoolDown && playerMove.canAttack())
             {
                 this.Attack();
@@ -54,31 +58,19 @@ namespace Game.Scripts.player
             cooldwonTime += Time.deltaTime;
         }
 
+        /// <summary>
+        /// Viên ??n b?n ra ngoài
+        /// </summary>
         private void Attack()
         {
             animator.SetTrigger("attack");
             cooldwonTime = 0;
             var Poolfireball=Projectile.Spawn().GetComponent<Projectile>();
             Poolfireball.OnStart();
-
             Poolfireball.transform.position = FireballPos.position;
-            var b = transform.localScale.x > 0 ? 1 : -1;
+            var SetDiretion = transform.localScale.x > 0 ? 1 : -1;
             Poolfireball.GetComponent<Rigidbody2D>().AddForce((transform.localScale.x>0?1:-1)*Vector2.right* Poolfireball.speed,ForceMode2D.Impulse);
-            Poolfireball.transform.localScale = new Vector3(1 * b, 1, 1);
-
-        
-        }
-
-        private int FindFireball()
-        {
-            for (int i = 0; i < Fireballhoder.Length; i++)
-            {
-                if (!Fireballhoder[i].activeInHierarchy)
-                {
-                    return i;
-                }
-            }
-            return 0;
+            Poolfireball.transform.localScale = new Vector3(1 * SetDiretion, 1, 1);
         }
     }
 }

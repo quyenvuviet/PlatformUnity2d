@@ -78,7 +78,9 @@ namespace Game.Scripts.Enemy
            
             return hit.collider != null;
         }
-
+        /// <summary>
+        ///  V? ra hình ?? bi?t ph?p vi ?ánh c?a nhân v?t
+        /// </summary>
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

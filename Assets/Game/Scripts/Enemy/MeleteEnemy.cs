@@ -37,7 +37,6 @@ namespace Game.Scripts.Enemy
             {
                 enemyPartrol.enabled = !CkeckPlayerInSight();
             }
-            Debug.Log(CkeckPlayerInSight());
         }
 
         /// <summary>

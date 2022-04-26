@@ -3,14 +3,17 @@ using System;
 using System.Collections;
 namespace Game.Scripts.player
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Projectile : MonoBehaviour
     {
         [SerializeField] public float speed;
         [SerializeField] private float direction;
-        [SerializeField] private bool hit;
+        private bool hit;
         [SerializeField] private Animator animator;
         [SerializeField] private float lifetime;
-        [SerializeField] private BoxCollider2D boxCollider;
+        private BoxCollider2D boxCollider;
 
 
         private void Awake()
@@ -43,30 +46,29 @@ namespace Game.Scripts.player
                 transform.position = new Vector2(Pos, transform.position.y);
             }
             GetComponent<Rigidbody2D>().velocity =Vector2.zero;
-            StartCoroutine(IeDespawn(1));
+            StartCoroutine(IeDespawn(5f));
         }
+        /// <summary>
+        ///  ??i trong vòng bao lâu thì viên ??n có th? xóa
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         IEnumerator IeDespawn(float time)
         {
             yield return new WaitForSeconds(time);
-            gameObject.Recycle();
+            this.Recyle();
+
         }
-        public void SetDiretion(float _direction)
+        /// <summary>
+        /// xóa viên ??n
+        /// </summary>
+        private void Recyle()
         {
-            lifetime = 0;
-            direction = _direction;
-            gameObject.SetActive(true);
-            hit = false;
-            boxCollider.enabled = true;
-
-            float locaSacleX = transform.localScale.x;
-
-            if (Mathf.Sign(locaSacleX) != _direction)
-            {
-                locaSacleX = -locaSacleX;
-            }
-            transform.localScale = new Vector3(locaSacleX, transform.localScale.y, transform.localScale.z);
+            this.gameObject.Recycle();
         }
-
+        /// <summary>
+        /// take Dame
+        /// </summary>
         private void Deactive()
         {
             gameObject.SetActive(false);

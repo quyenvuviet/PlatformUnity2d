@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Game.Scripts.Enemy
 {
+    /// <summary>
+    ///  M?i tên b?n
+    /// </summary>
     public class ArrawTrap : MonoBehaviour
     {
         [SerializeField] private float atttackCooldowm;

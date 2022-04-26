@@ -1,22 +1,36 @@
 using UnityEngine;
-
+using System.Collections;
 namespace Game.Scripts.player
 {
-    public class PlayerMove : MonoBehaviour
+    public partial class PlayerMove : MonoBehaviour
     {
+        
         private Rigidbody2D body;
 
+        [Header("=====core Player=======")]
         [SerializeField]
-        private float Speed;
+        private float speed;
 
         [SerializeField]
-        private float JumpPower;
+        private float jumpPower;
+
+        [SerializeField]
+        private float houderInput;
+
+        [SerializeField]
+        private float ckeckHouderInputAttack;
 
         private float walljumpCoolider;
         private Animator animator;
         private float horizontal;
         private BoxCollider2D boxcollider;
+        /// <summary>
+        ///  bi?n hình
+        /// </summary>
+        private bool transfigure;
+        [Header("=======LayerMask=========")]
         [SerializeField] private LayerMask groundLayer;
+
         [SerializeField] private LayerMask groundwall;
 
         private void Awake()
@@ -44,7 +58,7 @@ namespace Game.Scripts.player
             }
             if (walljumpCoolider > 0.02)
             {
-                body.velocity = new Vector2(horizontal * Speed, body.velocity.y);
+                body.velocity = new Vector2(horizontal * speed, body.velocity.y);
                 if (this.onWall() && !isGround())
                 {
                     body.gravityScale = 0;
@@ -54,7 +68,7 @@ namespace Game.Scripts.player
                 {
                     body.gravityScale = 3;
                 }
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     this.Jump();
                 }
@@ -68,12 +82,22 @@ namespace Game.Scripts.player
             animator.SetBool("grounded", this.isGround());
         }
 
+        /// <summary>
+        ///  Sét h??ng quay cho nhân v?t
+        /// </summary>
+        private void IsDircetion()
+        {
+        }
+
+        /// <summary>
+        /// nhân v?t nh?y lên
+        /// </summary>
         private void Jump()
         {
             Debug.Log(isGround());
             if (this.isGround())
             {
-                body.velocity = new Vector2(body.velocity.x, JumpPower);
+                body.velocity = new Vector2(body.velocity.x, jumpPower);
                 animator.SetTrigger("jump");
             }
             else if (this.onWall() && !this.isGround())
@@ -91,21 +115,53 @@ namespace Game.Scripts.player
             }
         }
 
+        /// <summary>
+        /// ckeck xem có ch?m ??t vs m?t ??t hay không
+        /// </summary>
+        /// <returns></returns>
         private bool isGround()
         {
             RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxcollider.bounds.center, boxcollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
             return raycastHit2D.collider != null;
         }
 
+        /// <summary>
+        /// Ki?m tra xem nhân v?t có ch?m v?i t??ng hay không
+        /// </summary>
+        /// <returns></returns>
         private bool onWall()
         {
             RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxcollider.bounds.center, boxcollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, groundwall);
             return raycastHit2D.collider != null;
         }
 
+        /// <summary>
+        ///  có th? b?n khi
+        /// </summary>
+        /// <returns></returns>
         public bool canAttack()
         {
             return horizontal == 0 && isGround() && !onWall();
         }
+
+        /// <summary>
+        /// n?u d? phím thì s? ch?y nhanh
+        /// </summary>
+        private void inputSpeedRun()
+        {
+            if (Input.GetKey(KeyCode.Z))
+            {
+                houderInput += Time.deltaTime;
+                if (houderInput < ckeckHouderInputAttack)
+                {
+                    canAttack();
+                }
+                else
+                {
+                    this.speed = speed * 1.5f;
+                }
+            }
+        }
+       
     }
 }
