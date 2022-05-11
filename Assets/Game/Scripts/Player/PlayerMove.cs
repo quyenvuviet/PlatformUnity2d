@@ -1,10 +1,21 @@
 using UnityEngine;
 using System.Collections;
+using Spine;
+using Spine.Unity;
+
 namespace Game.Scripts.player
 {
     public partial class PlayerMove : MonoBehaviour
     {
-        
+        public enum PlayerState
+        {
+            NONE,
+            DIE,
+            IDLE,
+            RUN,
+            JUMP,
+            SWIM,
+        }
         private Rigidbody2D body;
 
         [Header("=====core Player=======")]
@@ -21,9 +32,10 @@ namespace Game.Scripts.player
         private float ckeckHouderInputAttack;
 
         private float walljumpCoolider;
-        private Animator animator;
         private float horizontal;
         private BoxCollider2D boxcollider;
+        [SerializeField] SkeletonAnimation AnimationData;
+        private string currentAnimation = "";
         /// <summary>
         ///  bi?n hình
         /// </summary>
@@ -36,8 +48,8 @@ namespace Game.Scripts.player
         private void Awake()
         {
             body = GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
             boxcollider = GetComponent<BoxCollider2D>();
+          
         }
 
         private void Start()
@@ -47,18 +59,35 @@ namespace Game.Scripts.player
         // Update is called once per frame
         private void Update()
         {
+            RaycastHit2D ray = CommonDebug.RayCast(transform.position, Vector2.right, 1f,groundLayer, Color.red);
             horizontal = Input.GetAxis("Horizontal");
+            if (isGround())
+            {
+                if (horizontal != 0)
+                    this.SetAnination("run");
+                else if (horizontal == 0)
+                {
+                    this.SetAnination("idle");
+                } else
+                {
+                    this.SetAnination("jump");
+                }
+            }
             if (horizontal > 0.01)
             {
                 body.transform.localScale = Vector3.one;
             }
-            if (horizontal < -0.01)
+            else if (horizontal < -0.01)
             {
                 body.transform.localScale = new Vector3(-1, 1, 1);
             }
+             
+            
             if (walljumpCoolider > 0.02)
             {
                 body.velocity = new Vector2(horizontal * speed, body.velocity.y);
+      
+               
                 if (this.onWall() && !isGround())
                 {
                     body.gravityScale = 0;
@@ -70,7 +99,9 @@ namespace Game.Scripts.player
                 }
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    this.SetAnination("jump",false);
                     this.Jump();
+                    
                 }
             }
             else
@@ -78,8 +109,6 @@ namespace Game.Scripts.player
                 walljumpCoolider += Time.deltaTime;
             }
 
-            animator.SetBool("run", horizontal != 0);
-            animator.SetBool("grounded", this.isGround());
         }
 
         /// <summary>
@@ -98,7 +127,7 @@ namespace Game.Scripts.player
             if (this.isGround())
             {
                 body.velocity = new Vector2(body.velocity.x, jumpPower);
-                animator.SetTrigger("jump");
+                
             }
             else if (this.onWall() && !this.isGround())
             {
@@ -142,6 +171,22 @@ namespace Game.Scripts.player
         public bool canAttack()
         {
             return horizontal == 0 && isGround() && !onWall();
+        }
+        public void SetAnination(string name, bool loop = true)
+        {
+            if (name == this.currentAnimation)
+            {
+                return;
+            }
+            AnimationData.state.SetAnimation(0, name, loop);
+            currentAnimation = name;
+        }
+        /// <summary>
+        /// ckeck va ch?m vs viên g?ch
+        /// </summary>
+        private void ckeck()
+        {
+
         }
 
         /// <summary>

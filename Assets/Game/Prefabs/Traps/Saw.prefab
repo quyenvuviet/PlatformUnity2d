@@ -144,4 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dame: 1
   speed: 3
-  movementDistance: 3
+  movementDistance: 2

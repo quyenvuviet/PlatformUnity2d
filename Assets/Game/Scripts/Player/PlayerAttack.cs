@@ -16,12 +16,6 @@ namespace Game.Scripts.player
         [SerializeField] private GameObject[] Fireballhoder;
         //[SerializeField] private GameObject fireball;
         private PoolManager fireBall;
-
-        /// <summary>
-        /// Hành ??ng c?a ng??i ch?i
-        /// </summary>
-        private Animator animator;
-
         /// <summary>
         /// Di chuy?n c?a ng??i ch?i
         /// </summary>
@@ -34,7 +28,7 @@ namespace Game.Scripts.player
 
         private void Awake()
         {
-            animator = GetComponent<Animator>();
+           
             playerMove = GetComponent<PlayerMove>();
 
         }
@@ -63,7 +57,7 @@ namespace Game.Scripts.player
         /// </summary>
         private void Attack()
         {
-            animator.SetTrigger("attack");
+            playerMove.SetAnination("idle");
             cooldwonTime = 0;
             var Poolfireball=Projectile.Spawn().GetComponent<Projectile>();
             Poolfireball.OnStart();

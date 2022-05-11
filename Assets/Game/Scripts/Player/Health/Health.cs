@@ -9,19 +9,21 @@ namespace Game.Scripts.player
         [Header("Health")]
         [SerializeField] private float StartingHealth;
         public float currentHealth { get; set; }
-        private Animator animator;
         private bool dead;
         [Header("iFrames")]
         [SerializeField] private float iFramesDuration;
         [SerializeField] private float numberOffLlashes;
         private SpriteRenderer spriteRenderer;
+        private PlayerMove player2d;
+
       
 
         private void Awake()
         {
-            animator = GetComponent<Animator>();
+          
             currentHealth = StartingHealth;
             spriteRenderer = GetComponent<SpriteRenderer>();
+            player2d = GetComponent<PlayerMove>();
         }
         private void Start()
         {
@@ -32,14 +34,14 @@ namespace Game.Scripts.player
             currentHealth = Mathf.Clamp(currentHealth - _dame, 0, StartingHealth);
             if (currentHealth > 0)
             {
-                animator.SetTrigger("hurt");
+                player2d.SetAnination("idle"); 
                 StartCoroutine(Invunerabilyty());
             }
             else
             {
                 if (!dead)
                 {
-                    animator.SetTrigger("die");
+                    player2d.SetAnination("die");
                     if (GetComponent<PlayerMove>() != null)
                     {
                         GetComponent<PlayerMove>().enabled = false;
@@ -54,8 +56,9 @@ namespace Game.Scripts.player
                     {
                         GetComponent<MeleteEnemy>().enabled = false;
                     }
-                   
+                    
                     dead = true;
+                    //todo Game Over
                 }
             }
         }
